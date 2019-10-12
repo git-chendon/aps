@@ -18,7 +18,7 @@ public class Encoding {
         for (int i = 0; i < GeneNum; i++) {
             //对优先级赋值
             do {
-                chromosome[0][i] = rand.nextInt(GeneNum) + 1;//把0-9变成1-10
+                chromosome[0][i] = rand.nextInt(GeneNum) + 1;//产生1-GeneNum以内的非重复随机数
             } while (bool[chromosome[0][i]]);
             bool[chromosome[0][i]] = true;
 
