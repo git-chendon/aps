@@ -1,17 +1,16 @@
-import genetic.Decoding;
-import genetic.Encoding;
-import genetic.Job;
-import genetic.Scheduling;
+import genetic.*;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
 public class demo {
-
+    public static final double CP = 0.6;  //交叉概率
+    public static final double MP = 0.15;  //变异概率
     public static void main(String[] args) {
         Encoding encoding = new Encoding();
         List<int[][]> chromList;
+
         int GeneNum = 6;
         List<int[]> Machine = new ArrayList<int[]>();
         int[] v1 = {1, 2, 5};
@@ -36,6 +35,21 @@ public class demo {
         };
         //编码染色体，得到染色体组
         chromList = encoding.initGroup(GeneNum, Machine, 4);
+        System.out.println(Machine.size());
+        System.out.println("原始染色体:");
+        chromOut(chromList);
+        //交叉
+        Cross cross = new Cross();
+        List<int[][]> crossChromList;
+        crossChromList = cross.cross(chromList,GeneNum,CP);
+        System.out.println("交叉后:");
+        chromOut(crossChromList);
+        //变异
+        Mutation mutation = new Mutation();
+        List<int[][]> mutChromList;
+        mutChromList = mutation.mutation(chromList,GeneNum,Machine,MP);
+        System.out.println("变异后:");
+        chromOut(mutChromList);
         //解码染色体，得到工序排列组合列表
         List<List<Job>> jobList = new ArrayList<List<Job>>();
         Decoding decoding = new Decoding();
@@ -45,13 +59,6 @@ public class demo {
         Scheduling scheduling = new Scheduling();
         jobListEnd = scheduling.schedulingGroup(jobList, durationTime);
 
-
-        //输出编码后的染色体组
-        System.out.println(Machine.size());
-        for (int i = 0; i < chromList.size(); i++) {
-            int[][] temp = chromList.get(i);
-            System.out.println("染色体" + i + ":\n" + toString(temp));
-        }
         //输出排程结果
         System.out.println("染色体组数：" + jobList.size());
         for (List<Job> tempJob : jobList) {
@@ -72,7 +79,13 @@ public class demo {
             }
             System.out.println();
         }
+    }
 
+    public static void chromOut(List<int[][]> list) {
+        for (int i = 0; i < list.size(); i++) {
+            int[][] temp = list.get(i);
+            System.out.println("染色体" + i + ":\n" + toString(temp));
+        }
     }
 
     public static int minTime(List<Job> jobList) {

@@ -34,8 +34,14 @@ public class Test {
             System.out.println(rand[i]);
             System.out.println(Math.random());
         }
+        Random random = new Random();
+        System.out.println("随机数：" + random.nextInt(2));
 
-
+        int a = 6;
+        double b = 0.16;
+        int c;
+        c = (int) (a * b);
+        System.out.println(a * b + "and" + c);
 
     }
 
