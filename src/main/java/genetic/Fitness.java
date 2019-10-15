@@ -1,6 +1,7 @@
 package genetic;
 
-import java.util.ArrayList;
+import model.Job;
+
 import java.util.List;
 
 /**
@@ -24,9 +25,8 @@ public class Fitness {
     }
 
     //获取解码-排程列表集合
-    //输入染色体集合列表
+    //输入染色体集合列表。
     public List<List<Job>> fitGroup(List<int[][]> chromList,int[][] durationTime) {
-//        Duration durationTime = new Duration();    //获取机器-工序映射时间表
         List<List<Job>> jobList;
         List<List<Job>> jobListScheduled;
         //解码染色体

@@ -1,12 +1,10 @@
 package genetic;
 
-import org.junit.Before;
+import model.Duration;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @auther chen.don

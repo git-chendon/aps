@@ -1,4 +1,4 @@
-package genetic;
+package model;
 
 /**
  * @auther chen.don

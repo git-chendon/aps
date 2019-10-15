@@ -1,4 +1,6 @@
-package genetic;
+package model;
+
+import model.Job;
 
 import java.util.List;
 

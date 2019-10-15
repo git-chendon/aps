@@ -21,24 +21,21 @@ public class Encoding {
                 chromosome[0][i] = rand.nextInt(GeneNum) + 1;//产生1-GeneNum以内的非重复随机数
             } while (bool[chromosome[0][i]]);
             bool[chromosome[0][i]] = true;
-
             //选择机器
             int index = rand.nextInt(Machine.get(i).length);
             int[] temp = Machine.get(i);
             chromosome[1][i]  = temp[index];
         }
-        System.out.println("染色体长度："+chromosome[0].length);
+//        System.out.println("染色体长度："+chromosome[0].length);
         return chromosome;
-
     }
-
     //初始化一组染色体
     public List<int[][]> initGroup(int GeneNum, List<int[]> Machine, int groupSize) {
         List<int[][]> chromGroup = new ArrayList<int[][]>();
         for (int i = 0; i < groupSize; i++) {
             chromGroup.add(initSingle(GeneNum, Machine));
         }
+        System.out.println("初始化染色体完成");
         return chromGroup;
     }
-
 }

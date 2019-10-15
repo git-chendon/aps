@@ -1,5 +1,7 @@
 package genetic;
 
+import model.Job;
+
 import java.util.ArrayList;
 import java.util.List;
 
