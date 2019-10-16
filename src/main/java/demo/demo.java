@@ -37,7 +37,7 @@ public class demo {
                 {3, 0, 3, 5, 0},
                 {0, 4, 0, 4, 0}
         };
-
+        Selection selection = new Selection();
 
         for (int i = 0; i < ITERA; i++) {
 
@@ -46,10 +46,11 @@ public class demo {
 
 
         //编码染色体，得到染色体组
-        chromList = encoding.initGroup(GeneNum, Machine, 4);
-//        System.out.println(Machine.size());
-//        System.out.println("原始染色体:");
-//        chromOut(chromList);
+        chromList = encoding.initGroup(GeneNum, Machine, 30);
+        System.out.println(Machine.size());
+        System.out.println("排序后原始染色体:");
+        chromList = selection.selectSingleSortGroup(chromList,durationTime);
+        chromOut(chromList);
         //适应度
         Fitness fitness = new Fitness();
         int[] fit = fitness.fitness(chromList, durationTime);
@@ -61,17 +62,17 @@ public class demo {
         Cross cross = new Cross();
         List<int[][]> crossChromList;
         crossChromList = cross.cross(chromList, GeneNum, CP);
-//        System.out.println("交叉后:");
-//        chromOut(crossChromList);
+        System.out.println("交叉后:");
+        chromOut(crossChromList);
         //变异
         Mutation mutation = new Mutation();
         List<int[][]> mutChromList;
         mutChromList = mutation.mutation(chromList, GeneNum, Machine, MP);
-//        System.out.println("变异后:");
-//        chromOut(mutChromList);
-        //选择
+        System.out.println("变异后:");
+        chromOut(mutChromList);
+//        选择
 
-        Selection selection = new Selection();
+
         int[][] seleSingle = selection.selectionSingle(chromList,durationTime);
         for (int i = 0;i<seleSingle[0].length;i++){
 
@@ -79,7 +80,7 @@ public class demo {
         }
 
 
-        List<int[][]> selGroup = selection.selectionAll(chromList,crossChromList,mutChromList,durationTime);
+        List<int[][]> selGroup = selection.selectNextGeneration(chromList,crossChromList,mutChromList,durationTime);
         System.out.println("选择后染色体数："+ selGroup.size());
         int[] fit1 = fitness.fitness(selGroup, durationTime);
         for (int i = 0; i < fit1.length; i++) {

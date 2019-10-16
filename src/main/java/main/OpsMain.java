@@ -18,7 +18,7 @@ public class OpsMain {
     private static final double MP = 0.15;  //变异概率
     private static final long ITERA = 100;  //迭代次数
     private static final int GeneNum = 6;  //染色体数
-    private static final int GroupSize = 100; //种群数
+    private static final int GroupSize = 30; //种群数
 
     public static void main(String[] args) {
 //        List<int[]> Machine = new ArrayList<>(); //工序对应机器列表
@@ -60,6 +60,10 @@ public class OpsMain {
         System.out.println("初始排程结果：");
         schedulingOut(parentGroup,durationTime);
 
+        //排序原始染色体组,保证选择正常进行
+        parentGroup = selection.selectSingleSortGroup(parentGroup,durationTime);
+
+
         //迭代求最优解
         for (int i = 0; i < ITERA; i++) {
             //交叉
@@ -67,10 +71,12 @@ public class OpsMain {
             //变异
             C2 = mutation.mutation(parentGroup, GeneNum, Machine, MP);
             //选择
-            parentGroup = selection.selectionAll(parentGroup, C1, C2, durationTime);
+            parentGroup = selection.selectNextGeneration(parentGroup, C1, C2, durationTime);
         }
         System.out.println("迭代后排程结果：");
         schedulingOut(parentGroup,durationTime);
+
+
     }
 
     //输出染色体
@@ -102,9 +108,11 @@ public class OpsMain {
         }
         //输出工序排列
         System.out.println("染色体组数：" + jobListEnd.size());
+        int i =0;
         for (List<Job> tempJob : jobListEnd) {
             //System.out.println(tempJob.size());
-            System.out.println("工作完成时间：" + minTime(tempJob));
+            i++;
+            System.out.println(i+"工作完成时间：" + minTime(tempJob));
             for (Job job : tempJob) {
                 System.out.print("<工序" + job.getJobNum() + "机器" + job.getMachineNum() +
                         "开始" + job.getStartTime() + "结束" + job.getEndTime() + ">");
