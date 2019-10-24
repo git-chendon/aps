@@ -1,10 +1,8 @@
 package main;
 
 import genetic.*;
-import model.Duration;
 import model.Job;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +44,7 @@ public class OpsMain {
                 {0, 4, 0, 4, 0}
         };
         Encoding encoding = new Encoding();
-        Cross cross = new Cross();
+        Crossing crossing = new Crossing();
         Mutation mutation = new Mutation();
         Selection selection = new Selection();
         List<int[][]> parentGroup = new ArrayList<>(); //原始种群
@@ -67,7 +65,7 @@ public class OpsMain {
         //迭代求最优解
         for (int i = 0; i < ITERA; i++) {
             //交叉
-            C1 = cross.cross(parentGroup, GeneNum, CP);
+            C1 = crossing.cross(parentGroup, GeneNum, CP);
             //变异
             C2 = mutation.mutation(parentGroup, GeneNum, Machine, MP);
             //选择

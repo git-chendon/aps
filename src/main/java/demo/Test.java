@@ -1,3 +1,7 @@
+package demo;
+
+import model.Machine;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,9 +10,20 @@ import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
+
         int[] xx = new int[]{1, 2, 3};
         List<int[]> aa = new ArrayList<int[]>();
         aa.add(xx);
+
+        List<Machine> machineList = new ArrayList<>();
+        Machine machine = new Machine();
+        machine.setMachineNum(11);
+        machineList.add(machine);
+        System.out.println("初始 "+machineList.get(0).getMachineNum());
+        Machine machine1 = machineList.get(0);
+        machine1.setMachineNum(10);
+        System.out.println("赋值后 "+machineList.get(0).getMachineNum());
+
 //        for(int i=0; i<aa.size(); i++) {
 //            System.out.println("列表项为: "+i);
 //        }

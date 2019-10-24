@@ -8,9 +8,9 @@ import java.util.Random;
  * @auther chen.don
  * @date 2019/10/12 19:46
  */
-public class Cross {
+public class Crossing {
     //交叉，对机器采用两点交叉，对优先级采用顺序交叉
-
+    //交叉使用的父代还未按适应度进行选择****** ，后期加上。
 
     //交叉算子
     public List<int[][]> cross(List<int[][]> chromGroup, int GeneNum, double crossRate) {

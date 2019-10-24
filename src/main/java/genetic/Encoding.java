@@ -24,12 +24,13 @@ public class Encoding {
             //选择机器
             int index = rand.nextInt(Machine.get(i).length);
             int[] temp = Machine.get(i);
-            chromosome[1][i]  = temp[index];
+            chromosome[1][i] = temp[index];
         }
 //        System.out.println("染色体长度："+chromosome[0].length);
         return chromosome;
     }
-    //初始化一组染色体
+
+    //初始化一组染色体,得到二维编码
     public List<int[][]> initGroup(int GeneNum, List<int[]> Machine, int groupSize) {
         List<int[][]> chromGroup = new ArrayList<int[][]>();
         for (int i = 0; i < groupSize; i++) {
