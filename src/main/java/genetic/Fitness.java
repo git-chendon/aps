@@ -7,40 +7,17 @@ import java.util.List;
 
 /**
  * @auther chen.don
- * @date 2019/10/13 21:07
+ * @date 2019/10/25 11:26
  */
 public class Fitness {
 
-    /*********************初始版本**************************/
-    //计算个体适应度,完成时间最小
-    public int[] fitness(List<int[][]> chromList, int[][] durationTime) {
-        List<List<Job>> jobListScheduled;
-        jobListScheduled = fitGroup(chromList, durationTime);
-        //计算适应度
-        return timeList(jobListScheduled);
-    }
-
-    //获取解码-排程列表集合
-    //输入染色体集合列表。
-    private List<List<Job>> fitGroup(List<int[][]> chromList, int[][] durationTime) {
-        List<List<Job>> jobList;
-        List<List<Job>> jobListScheduled;
-        //解码染色体
-        Decoding decoding = new Decoding();
-        jobList = decoding.decoding(chromList);
-        //简单排程
-        Scheduling scheduling = new Scheduling();
-        jobListScheduled = scheduling.schedulingGroup(jobList, durationTime);
-        return jobListScheduled;
-    }
-
-    /******************改进后版本**************************************/
     //计算适应度
-    public int[] fitness(List<int[][]> chromList, List<Order> orderSorted, int machineNum) {
+    public int[] fitness(List<int[][]> chromList, List<Order> orderSorted,
+                         List<Job> originJobList, int machineNum) {
         List<List<Job>> jobListScheduled;
         int size = chromList.size();
         //获取排程结果
-        jobListScheduled = fitGroup(chromList, orderSorted, machineNum);
+        jobListScheduled = scheduling(chromList, orderSorted, originJobList, machineNum);
 
         //提取适应度参数--订单完成时间--订单惩罚度--计算订单超时惩罚
         int n = 0;
@@ -50,12 +27,12 @@ public class Fitness {
             for (Order order : orderSorted) {       //遍历订单找到超时订单并计算超时惩罚
                 int endTime = 0;
                 for (int i : order.getOrderJob()) {
-                    if (endTime < jobList.get(i).getEndTime()) {
-                        endTime = jobList.get(i).getEndTime();
+                    if (endTime < jobList.get(i - 1).getEndTime()) {
+                        endTime = jobList.get(i - 1).getEndTime();
                     }
                 }
-                if (endTime > order.getOrderEndDate()) {
-                    orderOvertimePunish += order.getOrderEndDate() - endTime;
+                if (endTime > order.getOrderEndDate()) {          //如果超时
+                    orderOvertimePunish += (endTime - order.getOrderEndDate());
                 }
             }
             fitParam[0][n] = minTime(jobList);     //订单完成时间
@@ -66,35 +43,27 @@ public class Fitness {
         //计算适应度
         int[] result = new int[size];
         for (int i =0;i < size; i++) {
-            result[i] = (int)(0.9*fitParam[0][n] + 0.1*fitParam[1][n]);
+            System.out.println("工作完成时间"+fitParam[0][i]+"惩罚值"+fitParam[1][i]);
+            result[i] = (int)(0.9*fitParam[0][i] + 0.1*fitParam[1][i]);
         }
         return result;
     }
 
     //获取解码排程结果
-    public List<List<Job>> fitGroup(List<int[][]> chromList, List<Order> orderSorted, int machineNum) {
+    private List<List<Job>> scheduling(List<int[][]> chromList, List<Order> orderSorted,
+                                       List<Job> originJobList, int machineNum) {
         List<List<Job>> jobList;
         List<List<Job>> jobListScheduled;
         Decoding decoding = new Decoding();
-        Scheduling scheduling = new Scheduling();
+        Scheduling schedule = new Scheduling();
         //解码染色体
-        jobList = decoding.decodingAll(chromList, orderSorted);
+        jobList = decoding.decodingAll(chromList, orderSorted, originJobList);
         //排程
-        jobListScheduled = scheduling.schedulingGroup(jobList, machineNum);
+        jobListScheduled = schedule.schedulingGroup(jobList, machineNum);
         return jobListScheduled;
     }
 
-    //获得适应度--全部工序完成时间
-    private int[] timeList(List<List<Job>> jobListScheduled) {
-        int cont = jobListScheduled.size();
-        int[] fitTime = new int[cont];
-        for (int i = 0; i < cont; i++) {
-            List<Job> jobs = jobListScheduled.get(i);
-            fitTime[i] = minTime(jobs);
-        }
-        return fitTime;
-    }
-
+    //获取总订单最小完成时间
     private int minTime(List<Job> jobList) {
         int Tmin = 0;
         for (Job job : jobList) {
@@ -105,6 +74,7 @@ public class Fitness {
         return Tmin;
     }
 
+    //获取每组染色体的惩罚值
     private int punishSum(List<Job> jobList) {
         int sum = 0;
         for (Job job : jobList) {

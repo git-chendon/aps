@@ -14,8 +14,9 @@ public class demo {
     public static final double MP = 0.15;  //变异概率
     public static final long ITERA = 10;  //迭代次数
 
+
     public static void main(String[] args) {
-        Encoding encoding = new Encoding();
+
         List<int[][]> chromList;
 
         int GeneNum = 6;
@@ -31,15 +32,7 @@ public class demo {
         Machine.add(v3);
         Machine.add(v4);
         Machine.add(v5);
-        Machine.add(v6);
-        int[][] durationTime = new int[][]{
-                {4, 5, 0, 0, 5},
-                {6, 0, 3, 0, 0},
-                {0, 2, 4, 3, 0},
-                {0, 0, 0, 4, 4},
-                {3, 0, 3, 5, 0},
-                {0, 4, 0, 4, 0}
-        };
+        Machine.add(v6);                       //机器-工序映射
         List<Order> orderList = new ArrayList<>();
         Order order = new Order();
         Set<Integer> tempOrder = new HashSet<>();
@@ -51,31 +44,39 @@ public class demo {
         tempOrder.add(6);
         order.setOrderNum(1);
         order.setOrderJob(tempOrder);
-        orderList.add(order);
-        if(order.getOrderJob().contains(2)) {
-            System.out.println("测试正确");
-        }
-
-        Selection selection = new Selection();
+        orderList.add(order);                //订单信息
+        int machineNum = 5;                  //机器数量
 
         //编码染色体，得到染色体组
+        Encoding encoding = new Encoding();
         chromList = encoding.initGroup(GeneNum, Machine, 30);
         chromOut(chromList);
+        //交叉
+        Crossing crossing = new Crossing();
+        List<int[][]> C1 = crossing.cross(chromList,GeneNum,CP);
+        //变异
+        Mutation mutation = new Mutation();
+        List<int[][]> C2 = mutation.mutation(chromList,GeneNum,Machine,MP);
+        //选择
+        Selecting selecting = new Selecting();
+        List<int[][]> P = selecting.selectNextGeneration(chromList,C1,C2,orderList,machineNum);
         //解码染色体，得到工序排列组合列表
         Decoding decoding = new Decoding();
-        List<List<Job>> jobListAll = decoding.decodingAll(chromList, orderList); //含有订单优先级的解码
+        List<List<Job>> jobList = decoding.decodingAll(P, orderList); //含有订单优先级的解码
         System.out.println("含有订单优先级的解码:");
-        schedulingOut(jobListAll);
-        List<List<Job>> jobList = decoding.decoding(chromList);              //不含有订单的解码
-        System.out.println("含不含有订单的解码:");
         schedulingOut(jobList);
         //简单排程
-        List<List<Job>> jobListEnd = new ArrayList<List<Job>>();
-        Scheduling scheduling = new Scheduling();
-        jobListEnd = scheduling.schedulingGroup(jobList, 5);
+        Scheduling schedule = new Scheduling();
+        List<List<Job>> jobListEnd = schedule.schedulingGroup(jobList, machineNum);
         System.out.println("简单排程:");
         schedulingOut(jobListEnd);
-
+        //适应度计算
+        Fitness fitness = new Fitness();
+        System.out.println("适应度");
+        int[] fit = fitness.fitness(P,orderList,machineNum);
+        for (int i = 0;i <fit.length;i++) {
+            System.out.println(i+"组的适应度"+fit[i]);
+        }
     }
 
     private static void schedulingOut(List<List<Job>> jobListEnd) {
@@ -123,6 +124,14 @@ public class demo {
 
 }
 
+//    int[][] durationTime = new int[][]{
+//                {4, 5, 0, 0, 5},
+//                {6, 0, 3, 0, 0},
+//                {0, 2, 4, 3, 0},
+//                {0, 0, 0, 4, 4},
+//                {3, 0, 3, 5, 0},
+//                {0, 4, 0, 4, 0}
+//        };
 
 //        //适应度
 //        Fitness fitness = new Fitness();

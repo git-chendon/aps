@@ -1,4 +1,5 @@
-package genetic;
+package geneticOld;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class Selection {
 
-    //选出排序后的种群
+    //选出排序后的种群--保证选出最优解
     public List<int[][]> selectSingleSortGroup(List<int[][]> chromGroup, int[][] durationTime) {
         Fitness fitness = new Fitness();
         List<int[][]> result = new ArrayList<>();
@@ -21,7 +22,7 @@ public class Selection {
         return result;
     }
 
-    //求出适应度，并排序。
+    //求出适应度，并排序。--输出个体编号和对应的适应度排序后结果
     public int[][] selectionSingle(List<int[][]> chromGroup, int[][] durationTime) {
         Fitness fitness = new Fitness();
         int[] fit = fitness.fitness(chromGroup, durationTime);
@@ -31,10 +32,13 @@ public class Selection {
     //对变异和交叉后的结果和原始种群一起进行选择，和selectionAll相比对选出的排序后输出
     public List<int[][]> selectNextGeneration(List<int[][]> P, List<int[][]> C1, List<int[][]> C2, int[][] durationTime) {
         List<int[][]> result = new ArrayList<>();
+
+        //计算各种群的适应度，并排序输出
         int[][] sortFitP = selectionSingle(P, durationTime);
         int[][] sortFitC1 = selectionSingle(C1, durationTime);
         int[][] sortFitC2 = selectionSingle(C2, durationTime);
-        //筛选出各种群中最优的
+
+        //筛选出各种群中最优的，形成新的种群
         int tag = 0;
         int tagP = 0;
         int tagC1 = 0;
