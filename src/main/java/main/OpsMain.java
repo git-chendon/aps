@@ -19,7 +19,7 @@ public class OpsMain {
 
     private static final double CP = 0.8;  //交叉概率
     private static final double MP = 0.15;  //变异概率
-    private static final long ITERA = 1000;  //迭代次数
+    private static final long ITERA = 500;  //迭代次数
     private static final int ChromNum = 15;  //染色体数
     private static final int GroupSize = 30; //种群数
     private static final int MachineNum = 6; //种群数
@@ -178,6 +178,8 @@ public class OpsMain {
         List<int[][]> C2; //变异后子代
 
         parentGroup = encoding.initGroup(ChromNum, originJobList, GroupSize);
+        //对初始种群排序
+        parentGroup = new Selecting().sortChromGroup(parentGroup,sortedOrderList,originJobList,MachineNum);
 
         //迭代求最优解
         for (int i = 0; i < ITERA; i++) {

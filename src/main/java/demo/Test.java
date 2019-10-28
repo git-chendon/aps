@@ -2,6 +2,7 @@ package demo;
 
 import model.Machine;
 
+import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,53 +11,61 @@ import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
+        Color color1 = new Color(2,2,222);
+        Color color2 = new Color(0,0,0);
+        long rMean = ((long)color1.getRed() + (long)color2.getRed());
+        long r = (long)color1.getRed() - (long)color2.getRed();
+        long g = (long)color1.getGreen() - (long)color2.getGreen();
+        long b = (long)color1.getBlue() - (long)color2.getBlue();
+        System.out.println((int)((Math.sqrt((((512 + rMean)*r*r)>>8) + 4*g*g + (((767 - rMean)*b*b)>>8))/764)*5));
 
-        int[] xx = new int[]{1, 2, 3};
-        List<int[]> aa = new ArrayList<int[]>();
-        aa.add(xx);
 
-        List<Machine> machineList = new ArrayList<>();
-        Machine machine = new Machine();
-        machine.setMachineNum(11);
-        machineList.add(machine);
-        System.out.println("初始 "+machineList.get(0).getMachineNum());
-        Machine machine1 = machineList.get(0);
-        machine1.setMachineNum(10);
-        System.out.println("赋值后 "+machineList.get(0).getMachineNum());
-
-//        for(int i=0; i<aa.size(); i++) {
-//            System.out.println("列表项为: "+i);
+//        int[] xx = new int[]{1, 2, 3};
+//        List<int[]> aa = new ArrayList<int[]>();
+//        aa.add(xx);
+//
+//        List<Machine> machineList = new ArrayList<>();
+//        Machine machine = new Machine();
+//        machine.setMachineNum(11);
+//        machineList.add(machine);
+//        System.out.println("初始 "+machineList.get(0).getMachineNum());
+//        Machine machine1 = machineList.get(0);
+//        machine1.setMachineNum(10);
+//        System.out.println("赋值后 "+machineList.get(0).getMachineNum());
+//
+////        for(int i=0; i<aa.size(); i++) {
+////            System.out.println("列表项为: "+i);
+////        }
+////        int[] zz= aa.get(0);
+////        for (int i =0 ;i<zz.length;i++)
+//
+//
+//        int[][] string = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 2, 3}};
+//        StringBuilder xxx = new StringBuilder("");
+//        for (int i = 0; i < string.length; i++) {
+//            for (int j = 0; j < string[i].length; j++) {
+//                xxx.append(string[i][j]);
+//            }
+//            xxx.append("\r\n");
 //        }
-//        int[] zz= aa.get(0);
-//        for (int i =0 ;i<zz.length;i++)
-
-
-        int[][] string = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 2, 3}};
-        StringBuilder xxx = new StringBuilder("");
-        for (int i = 0; i < string.length; i++) {
-            for (int j = 0; j < string[i].length; j++) {
-                xxx.append(string[i][j]);
-            }
-            xxx.append("\r\n");
-        }
-        System.out.println(xxx);
-        System.out.println(string.length);
-        System.out.println((int) 5 / 2);
-
-        int groupSize = 10;
-        int[] rand = random(groupSize);
-        for (int i = 0; i < rand.length; i++) {
-            System.out.println(rand[i]);
-            System.out.println(Math.random());
-        }
-        Random random = new Random();
-        System.out.println("随机数：" + random.nextInt(2));
-
-        int a = 6;
-        double b = 0.16;
-        int c;
-        c = (int) (a * b);
-        System.out.println(a * b + "and" + c);
+//        System.out.println(xxx);
+//        System.out.println(string.length);
+//        System.out.println((int) 5 / 2);
+//
+//        int groupSize = 10;
+//        int[] rand = random(groupSize);
+//        for (int i = 0; i < rand.length; i++) {
+//            System.out.println(rand[i]);
+//            System.out.println(Math.random());
+//        }
+//        Random random = new Random();
+//        System.out.println("随机数：" + random.nextInt(2));
+//
+//        int a = 6;
+//        double b = 0.16;
+//        int c;
+//        c = (int) (a * b);
+//        System.out.println(a * b + "and" + c);
 
     }
 
