@@ -1,10 +1,10 @@
 package main;
 
 import genetic.*;
-import geneticOld.Schedule;
-import geneticOld.Selection;
 import model.Job;
+import model.Machine;
 import model.Order;
+import process.OrderSort;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,12 +19,14 @@ public class OpsMain {
 
     private static final double CP = 0.8;  //交叉概率
     private static final double MP = 0.15;  //变异概率
-    private static final long ITERA = 100;  //迭代次数
-    private static final int GeneNum = 6;  //染色体数
+    private static final long ITERA = 1000;  //迭代次数
+    private static final int ChromNum = 15;  //染色体数
     private static final int GroupSize = 30; //种群数
-    private static List<int[]> Machine = new ArrayList<>();
-    private static List<Order> originOrderList = new ArrayList<>();
-    private static List<Job> originJobList = new ArrayList<>();
+    private static final int MachineNum = 6; //种群数
+
+    private static List<Order> originOrderList = new ArrayList<>();      //订单信息
+    private static List<Job> originJobList = new ArrayList<>();          //工序信息,和工序机器映射信息
+    private static List<Machine> machineMapperList = new ArrayList<>();  //机器信息
 
     public static void init() {
 
@@ -82,11 +84,21 @@ public class OpsMain {
         tempSet.add(15);
         order = new Order();
         order.setOrderNum(5);
+        order.setOrderJob(tempSet);
         order.setOrderPriority(1);
         order.setOrderEndDate(50);
         originOrderList.add(order);
-
-        /*********初始化工序--对应机的器映射，模具，物料，物料颜色******/
+//        int or = 1;
+//        for (Order tempOrder : originOrderList) {
+//            Set<Integer> jobSet = tempOrder.getOrderJob();
+//            System.out.println("订单" + or);
+//            for (int xx : jobSet) {
+//                System.out.println("工序：" + xx);
+//            }
+//            or = or + 1;
+//        }
+        /*********初始化机器映射信息,,,,******/ /************初始化工序信息***************/
+        // 工序-机器映射表
         int[] v1 = {1, 3, 5};
         int[] v2 = {2, 5, 6};
         int[] v3 = {1, 4, 6};
@@ -102,22 +114,30 @@ public class OpsMain {
         int[] v13 = {3, 5, 6};
         int[] v14 = {1, 4, 5, 6};
         int[] v15 = {2, 3, 6};
-        Machine.add(v1);
-        Machine.add(v2);
-        Machine.add(v3);
-        Machine.add(v4);
-        Machine.add(v5);
-        Machine.add(v6);
-        Machine.add(v7);
-        Machine.add(v8);
-        Machine.add(v9);
-        Machine.add(v10);
-        Machine.add(v11);
-        Machine.add(v12);
-        Machine.add(v13);
-        Machine.add(v14);
-        Machine.add(v15);
-
+        //机器-工序生产力映射
+        int[][] machineJobMapper = new int[][]{
+                {2, 0, 3, 0, 4, 0}, {0, 2, 0, 0, 3, 4}, {2, 0, 0, 3, 0, 4},
+                {0, 0, 2, 3, 0, 4}, {2, 3, 0, 0, 4, 2}, {0, 3, 0, 4, 0, 0},
+                {2, 0, 3, 0, 0, 4}, {2, 3, 0, 4, 2, 0}, {0, 3, 4, 0, 2, 0},
+                {0, 3, 4, 2, 0, 3}, {4, 0, 0, 0, 2, 3}, {0, 0, 4, 2, 3, 0},
+                {0, 0, 4, 0, 2, 3}, {4, 0, 0, 2, 3, 4}, {0, 2, 3, 0, 0, 4}
+        };
+        List<int[]> tempMachine = new ArrayList<>();
+        tempMachine.add(v1);
+        tempMachine.add(v2);
+        tempMachine.add(v3);
+        tempMachine.add(v4);
+        tempMachine.add(v5);
+        tempMachine.add(v6);
+        tempMachine.add(v7);
+        tempMachine.add(v8);
+        tempMachine.add(v9);
+        tempMachine.add(v10);
+        tempMachine.add(v11);
+        tempMachine.add(v12);
+        tempMachine.add(v13);
+        tempMachine.add(v14);
+        tempMachine.add(v15);
         //初始化工序信息
         int[][] model = new int[][]{
                 {1, 2, 3, 4, 5, 2, 4, 6, 7, 8, 3, 6, 9, 10, 9},   //模具
@@ -134,54 +154,42 @@ public class OpsMain {
             job.setJobReadyTime(model[2][i]);
             job.setJobTakeDownTime(model[3][i]);
             job.setJobQuantity(model[4][i]);
+            //插入机器工序映射
+            job.setMachJobMapper(tempMachine.get(i));
+            job.setMachJobCapMapper(machineJobMapper[i]);
+
             originJobList.add(job);
         }
-
-
     }
 
     public static void main(String[] args) {
 
+        init();                        //初始化机器，订单，工序参数
 
-        int[][] durationTime = new int[][]{
-                {4, 5, 0, 0, 5},
-                {6, 0, 3, 0, 0},
-                {0, 2, 4, 3, 0},
-                {0, 0, 0, 4, 4},
-                {3, 0, 3, 5, 0},
-                {0, 4, 0, 4, 0}
-        };
+        OrderSort orderSort = new OrderSort();
+        List<Order> sortedOrderList = orderSort.orderSort(originOrderList);   //根据订单优先级排序订单
+
         Encoding encoding = new Encoding();
         Crossing crossing = new Crossing();
         Mutation mutation = new Mutation();
-        Selection selection = new Selection();
-        List<int[][]> parentGroup = new ArrayList<>(); //原始种群
-        List<int[][]> C1 = new ArrayList<>(); //交叉后子代
-        List<int[][]> C2 = new ArrayList<>(); //变异后子代
+        Selecting selecting = new Selecting();
+        List<int[][]> parentGroup; //原始种群
+        List<int[][]> C1; //交叉后子代
+        List<int[][]> C2; //变异后子代
 
-        //编码得到原始种群
-        parentGroup = encoding.initGroup(GeneNum, Machine, GroupSize);
-        System.out.println("原始染色体:");
-        chromOut(parentGroup);
-        System.out.println("初始排程结果：");
-        schedulingOut(parentGroup, durationTime);
-
-        //排序原始染色体组,保证选择正常进行
-        parentGroup = selection.selectSingleSortGroup(parentGroup, durationTime);
-
+        parentGroup = encoding.initGroup(ChromNum, originJobList, GroupSize);
 
         //迭代求最优解
         for (int i = 0; i < ITERA; i++) {
             //交叉
-            C1 = crossing.cross(parentGroup, GeneNum, CP);
+            C1 = crossing.cross(parentGroup, ChromNum, CP);
             //变异
-            C2 = mutation.mutation(parentGroup, GeneNum, Machine, MP);
+            C2 = mutation.mutation(parentGroup, ChromNum, originJobList, MP);
             //选择
-            parentGroup = selection.selectNextGeneration(parentGroup, C1, C2, durationTime);
+            parentGroup = selecting.selectNextGeneration(parentGroup, C1, C2, sortedOrderList, originJobList, MachineNum);
         }
         System.out.println("迭代后排程结果：");
-        schedulingOut(parentGroup, durationTime);
-
+        schedulingOut(parentGroup, sortedOrderList, originJobList, MachineNum);
 
     }
 
@@ -193,32 +201,35 @@ public class OpsMain {
         }
     }
 
-    //输出初始种群排程结果
-    private static void schedulingOut(List<int[][]> parentGroup, int[][] durationTime) {
-        //解码染色体，得到工序排列组合列表
-        List<List<Job>> jobList = new ArrayList<List<Job>>();
-        Decoding decoding = new Decoding();
-//        jobList = decoding.decoding(parentGroup);
-        //简单排程
-        List<List<Job>> jobListEnd = new ArrayList<List<Job>>();
-        Schedule schedule = new Schedule();
-        jobListEnd = schedule.scheduleGroup(jobList, durationTime);
-        //输出排程结果
-        System.out.println("染色体组数：" + jobList.size());
-        for (List<Job> tempJob : jobList) {
+    private static void decodingOut(List<List<Job>> jobListEnd) {
+        //输出工序排列
+        System.out.println("染色体组数：" + jobListEnd.size());
+        for (List<Job> tempJob : jobListEnd) {
             //System.out.println(tempJob.size());
+            System.out.println("工作完成时间：" + minTime(tempJob));
             for (Job job : tempJob) {
-                System.out.print("<工序" + job.getJobNum() + " 生产机器" + job.getMachineNum() + ">");
+                System.out.print("<工序" + job.getJobNum() + "机器" + job.getMachineNum() +
+                        "开始" + job.getStartTime() + "结束" + job.getEndTime() + ">");
             }
             System.out.println();
         }
+    }
+
+    //输出初始种群排程结果
+    private static void schedulingOut(List<int[][]> parentGroup, List<Order> orderSorted,
+                                      List<Job> originJobList, int machineNum) {
+        //解码染色体，得到工序排列组合列表
+        List<List<Job>> jobList = new Decoding().decodingAll(parentGroup, orderSorted, originJobList);
+        //简单排程
+        List<List<Job>> jobListEnd = new Scheduling().schedulingGroup(jobList, machineNum);
+        //计算适应度
+        int[] fitness = new Fitness().fitness(parentGroup, orderSorted, originJobList, machineNum);
         //输出工序排列
         System.out.println("染色体组数：" + jobListEnd.size());
         int i = 0;
         for (List<Job> tempJob : jobListEnd) {
-            //System.out.println(tempJob.size());
             i++;
-            System.out.println(i + "工作完成时间：" + minTime(tempJob));
+            System.out.println(i + "工作完成时间：" + minTime(tempJob) + " 惩罚值" + fitness[i-1]);
             for (Job job : tempJob) {
                 System.out.print("<工序" + job.getJobNum() + "机器" + job.getMachineNum() +
                         "开始" + job.getStartTime() + "结束" + job.getEndTime() + ">");
@@ -241,7 +252,7 @@ public class OpsMain {
         StringBuilder xxx = new StringBuilder("");
         for (int i = 0; i < string.length; i++) {
             for (int j = 0; j < string[i].length; j++) {
-                xxx.append(string[i][j]);
+                xxx.append(" " + string[i][j]);
             }
             xxx.append("\r\n");
         }
@@ -249,3 +260,15 @@ public class OpsMain {
     }
 
 }
+
+
+//    chromOut(parentGroup);
+//    List<List<Job>> decodedChromList = decoding.decodingAll(parentGroup,sortedOrderList,originJobList);
+//    decodingOut(decodedChromList);
+//        parentGroup = initChromList;
+//                C1 = crossing.cross(parentGroup,ChromNum,CP);
+////        chromOut(C1);
+//                C2 = mutation.mutation(parentGroup,ChromNum,originJobList,MP);
+//                chromOut(C2);
+////        选择
+//                List<int[][]> P = selecting.selectNextGeneration(parentGroup,C1,C2,sortedOrderList,originJobList,MachineNum);

@@ -43,7 +43,9 @@ public class Fitness {
         //计算适应度
         int[] result = new int[size];
         for (int i =0;i < size; i++) {
-            System.out.println("工作完成时间"+fitParam[0][i]+"惩罚值"+fitParam[1][i]);
+
+//            System.out.println("工作完成时间"+fitParam[0][i]+"惩罚值"+fitParam[1][i]);
+
             result[i] = (int)(0.9*fitParam[0][i] + 0.1*fitParam[1][i]);
         }
         return result;

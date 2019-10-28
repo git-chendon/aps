@@ -12,7 +12,7 @@ public class Job {
      */
     private int jobNum;
     /**
-     * 机器
+     * 使用的机器
      */
     private int MachineNum;
     /**
@@ -55,6 +55,14 @@ public class Job {
      * 惩罚值
      */
     private int punishment;
+    /**
+     * 机器-工序映射
+     */
+    private int[] machJobMapper;
+    /**
+     * 机器对应的生产能力
+     */
+    private int[] machJobCapMapper;
 
     public int getPunishment() {
         return punishment;
@@ -150,5 +158,21 @@ public class Job {
 
     public void setJobColor(Color jobColor) {
         this.jobColor = jobColor;
+    }
+
+    public int[] getMachJobMapper() {
+        return machJobMapper;
+    }
+
+    public void setMachJobMapper(int[] machJobMapper) {
+        this.machJobMapper = machJobMapper;
+    }
+
+    public int[] getMachJobCapMapper() {
+        return machJobCapMapper;
+    }
+
+    public void setMachJobCapMapper(int[] machJobCapMapper) {
+        this.machJobCapMapper = machJobCapMapper;
     }
 }

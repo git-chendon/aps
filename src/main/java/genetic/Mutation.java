@@ -1,5 +1,7 @@
 package genetic;
 
+import model.Job;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +14,7 @@ public class Mutation {
     //变异：对机器，随机选择几个工序，从机器集合中程序选择可替代机器。
     //对优先级，随机选择一个工序，拿出来插到前面去，其他顺序不变后移一位。
 
-    public List<int[][]> mutation(List<int[][]> chromGroup, int GeneNum, List<int[]> Machine, double mutationRate) {
+    public List<int[][]> mutation(List<int[][]> chromGroup, int GeneNum, List<Job> machineList, double mutationRate) {
         Random random = new Random();
         List<int[][]> mutChromGrop = new ArrayList<>();
         for (int[][] tempChrom : chromGroup) {
@@ -20,8 +22,8 @@ public class Mutation {
             for (int i = 0; i < GeneNum * mutationRate; i++) {
                 int mutLocation = random.nextInt(GeneNum);
                 //选择机器
-                int index = random.nextInt(Machine.get(mutLocation).length);
-                int[] temp = Machine.get(mutLocation);
+                int index = random.nextInt(machineList.get(mutLocation).getMachJobMapper().length);
+                int[] temp = machineList.get(mutLocation).getMachJobMapper();
                 tempChrom[1][mutLocation] = temp[index];
             }
             //优先级变异

@@ -12,10 +12,7 @@ public class Machine {
      * 工序--机器映射
      */
     private int machineNum;
-    /**
-     * 机器对应的生产能力
-     */
-    private int machineCapacity;
+
     /**
      * 机器使用的物料
      */
@@ -39,14 +36,6 @@ public class Machine {
 
     public void setMachineNum(int machineNum) {
         this.machineNum = machineNum;
-    }
-
-    public int getMachineCapacity() {
-        return machineCapacity;
-    }
-
-    public void setMachineCapacity(int machineCapacity) {
-        this.machineCapacity = machineCapacity;
     }
 
     public int getMachineMaterial() {
@@ -80,4 +69,5 @@ public class Machine {
     public void setMachineColor(Color machineColor) {
         this.machineColor = machineColor;
     }
+
 }
