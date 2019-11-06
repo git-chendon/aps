@@ -11,7 +11,7 @@ import java.util.List;
 public class Fitness {
 
     //计算个体适应度,完成时间最小
-    public int[] fitness(List<int[][]> chromList, int[][] durationTime) {
+    public double[] fitness(List<int[][]> chromList, int[][] durationTime) {
         List<List<Job>> jobListScheduled;
         jobListScheduled = fitGroup(chromList, durationTime);
         //计算适应度
@@ -32,17 +32,17 @@ public class Fitness {
         return jobListScheduled;
     }
     //获得适应度--全部工序完成时间
-    private int[] timeList(List<List<Job>> jobListScheduled) {
+    private double[] timeList(List<List<Job>> jobListScheduled) {
         int cont = jobListScheduled.size();
-        int[] fitTime = new int[cont];
+        double[] fitTime = new double[cont];
         for (int i = 0; i < cont; i++) {
             List<Job> jobs = jobListScheduled.get(i);
             fitTime[i] = minTime(jobs);
         }
         return fitTime;
     }
-    private int minTime(List<Job> jobList) {
-        int Tmin = 0;
+    private double minTime(List<Job> jobList) {
+        double Tmin = 0;
         for (Job job : jobList) {
             if (job.getEndTime() > Tmin) {
                 Tmin = job.getEndTime();

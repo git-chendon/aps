@@ -24,7 +24,7 @@ public class Machine {
     /**
      * 机器可使用的时间
      */
-    private int machineUseableTime;
+    private double machineUseableTime;
     /**
      * 机器使用的模具
      */
@@ -46,11 +46,11 @@ public class Machine {
         this.machineMaterial = machineMaterial;
     }
 
-    public int getMachineUseableTime() {
+    public double getMachineUseableTime() {
         return machineUseableTime;
     }
 
-    public void setMachineUseableTime(int machineUseableTime) {
+    public void setMachineUseableTime(double machineUseableTime) {
         this.machineUseableTime = machineUseableTime;
     }
 

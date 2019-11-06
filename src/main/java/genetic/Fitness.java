@@ -21,11 +21,11 @@ public class Fitness {
 
         //提取适应度参数--订单完成时间--订单惩罚度--计算订单超时惩罚
         int n = 0;
-        int[][] fitParam = new int[2][size];
+        double[][] fitParam = new double[2][size];
         for (List<Job> jobList : jobListScheduled) {
-            int orderOvertimePunish = 0;
+            double orderOvertimePunish = 0;
             for (Order order : orderSorted) {       //遍历订单找到超时订单并计算超时惩罚
-                int endTime = 0;
+                double endTime = 0;
                 for (int i : order.getOrderJob()) {
                     if (endTime < jobList.get(i - 1).getEndTime()) {
                         endTime = jobList.get(i - 1).getEndTime();
@@ -46,7 +46,7 @@ public class Fitness {
 
 //            System.out.println("工作完成时间"+fitParam[0][i]+"惩罚值"+fitParam[1][i]);
 
-            result[i] = (int)(0.9*fitParam[0][i] + 0.1*fitParam[1][i]);
+            result[i] = (int)(0.7*fitParam[0][i] + 0.3*fitParam[1][i]);
         }
         return result;
     }
@@ -66,8 +66,8 @@ public class Fitness {
     }
 
     //获取总订单最小完成时间
-    private int minTime(List<Job> jobList) {
-        int Tmin = 0;
+    private double minTime(List<Job> jobList) {
+        double Tmin = 0;
         for (Job job : jobList) {
             if (job.getEndTime() > Tmin) {
                 Tmin = job.getEndTime();

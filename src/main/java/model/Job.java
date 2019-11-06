@@ -34,24 +34,25 @@ public class Job {
     /**
      * 订单加工时间
      */
-    private int jobProductTime;
+    private double jobProductTime;
     /**
      * 生产准备时间
      */
-    private int jobReadyTime;
+    private double jobReadyTime;
     /**
      * 摸具拆卸时间
      */
-    private int jobTakeDownTime;
+    private double jobTakeDownTime;
     /**
      * 工序开始时间
      */
-    private int StartTime;
+    private double StartTime;
     /**
      * 工序结束时间
      */
-    private int endTime;
+    private double endTime;
     /**
+     *
      * 惩罚值
      */
     private int punishment;
@@ -72,11 +73,11 @@ public class Job {
         this.punishment = punishment;
     }
 
-    public int getEndTime() {
+    public double getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(int endTime) {
+    public void setEndTime(double endTime) {
         this.endTime = endTime;
     }
 
@@ -96,11 +97,11 @@ public class Job {
         MachineNum = machineNum;
     }
 
-    public int getStartTime() {
+    public double getStartTime() {
         return StartTime;
     }
 
-    public void setStartTime(int startTime) {
+    public void setStartTime(double startTime) {
         StartTime = startTime;
     }
 
@@ -128,27 +129,27 @@ public class Job {
         this.jobQuantity = jobQuantity;
     }
 
-    public int getJobProductTime() {
+    public double getJobProductTime() {
         return jobProductTime;
     }
 
-    public void setJobProductTime(int jobProductTime) {
+    public void setJobProductTime(double jobProductTime) {
         this.jobProductTime = jobProductTime;
     }
 
-    public int getJobReadyTime() {
+    public double getJobReadyTime() {
         return jobReadyTime;
     }
 
-    public void setJobReadyTime(int jobReadyTime) {
+    public void setJobReadyTime(double jobReadyTime) {
         this.jobReadyTime = jobReadyTime;
     }
 
-    public int getJobTakeDownTime() {
+    public double getJobTakeDownTime() {
         return jobTakeDownTime;
     }
 
-    public void setJobTakeDownTime(int jobTakeDownTime) {
+    public void setJobTakeDownTime(double jobTakeDownTime) {
         this.jobTakeDownTime = jobTakeDownTime;
     }
 

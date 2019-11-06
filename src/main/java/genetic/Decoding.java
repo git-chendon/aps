@@ -3,10 +3,9 @@ package genetic;
 import model.Job;
 import model.Order;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @auther chen.don
@@ -22,16 +21,18 @@ public class Decoding {
         for (int[][] chromosome : chromGroup) {
 
             List<Job> tempJob = sortAndInitJobMsg(chromosome, originJobList);    //先按优先级对染色体工序进行排序
-            List<Job> resultJob = new ArrayList<>();
-
-            for (Order tempOrder : orderSorted) {                //遍历排序后的订单表
-                for (Job job : tempJob) {
-                    if (tempOrder.getOrderJob().contains(job.getJobNum())) {
-                        resultJob.add(job);
-                    }
-                }
-            }
-            result.add(resultJob);
+//            订单优先级加的位置不对。
+//            List<Job> resultJob = new ArrayList<>();
+//
+//            for (Order tempOrder : orderSorted) {                //遍历排序后的订单表
+//                for (Job job : tempJob) {
+//                    if (tempOrder.getOrderJob().contains(job.getJobNum())) {
+//                        resultJob.add(job);
+//                    }
+//                }
+//            }
+//            result.add(resultJob);
+            result.add(tempJob);
         }
         return result;
     }
@@ -60,7 +61,9 @@ public class Decoding {
                     int machProductivity = originJobList.get(j).getMachJobCapMapper()[chromosome[1][j] - 1]; //获取对应的生产力
 //                    System.out.println("机器号：" + (chromosome[1][j]) + "工序号：" + (j + 1));
 //                    System.out.println("生产力：" + machProductivity);
-                    int productTime = productNum/machProductivity;
+                    double productTime = (double)productNum/machProductivity;
+                    BigDecimal bg = new BigDecimal(productTime);
+                    productTime = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                     job.setJobProductTime(productTime);
                     
                     tempJob.add(job);

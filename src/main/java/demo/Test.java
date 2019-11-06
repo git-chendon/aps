@@ -1,9 +1,13 @@
 package demo;
 
 import model.Machine;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.category.IntervalCategoryDataset;
 
 import java.awt.*;
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,13 +15,34 @@ import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
-        Color color1 = new Color(2,2,222);
-        Color color2 = new Color(0,0,0);
-        long rMean = ((long)color1.getRed() + (long)color2.getRed());
-        long r = (long)color1.getRed() - (long)color2.getRed();
-        long g = (long)color1.getGreen() - (long)color2.getGreen();
-        long b = (long)color1.getBlue() - (long)color2.getBlue();
-        System.out.println((int)((Math.sqrt((((512 + rMean)*r*r)>>8) + 4*g*g + (((767 - rMean)*b*b)>>8))/764)*5));
+
+
+
+
+
+
+
+
+
+
+
+
+//        double aa = (double)1000/30;
+//        BigDecimal bg = new BigDecimal(aa);
+//        double d3 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+//        System.out.println(d3);
+
+
+
+//        long rMean = ((long)color1.getRed() + (long)color2.getRed());
+//        System.out.println(rMean);
+//        long r = (long)color1.getRed() - (long)color2.getRed();
+//        System.out.println(r);
+//        long g = (long)color1.getGreen() - (long)color2.getGreen();
+//        long b = (long)color1.getBlue() - (long)color2.getBlue();
+//        double dist = Math.sqrt((((512 + rMean)*r*r)>>8) + 4*g*g + (((767 - rMean)*b*b)>>8));
+//        System.out.println((int)((dist/764)*5));
+//        System.out.println(((Math.sqrt((((512 + rMean)*r*r)>>8) + 4*g*g + (((767 - rMean)*b*b)>>8))/764)*5));
 
 
 //        int[] xx = new int[]{1, 2, 3};

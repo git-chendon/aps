@@ -1,6 +1,5 @@
 package demo;
 
-import genetic.*;
 import model.Job;
 import model.Order;
 
@@ -100,8 +99,8 @@ public class demo {
         }
     }
 
-    private static int minTime(List<Job> jobList) {
-        int Tmin = 0;
+    private static double minTime(List<Job> jobList) {
+        double Tmin = 0;
         for (Job job : jobList) {
             if (job.getEndTime() > Tmin) {
                 Tmin = job.getEndTime();
