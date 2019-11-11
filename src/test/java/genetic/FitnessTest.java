@@ -28,12 +28,12 @@ class FitnessTest {
 
     @Test
     void fitness() {
-        Duration duration = new Duration();
-        duration.setDurationTime(durationTime);
-        chromList.add(xx);
-        int[] aa = new int[chromList.size()];
-        aa = fitness.fitness(chromList,duration.getDurationTime());
-        System.out.println(aa[0]);
+//        Duration duration = new Duration();
+//        duration.setDurationTime(durationTime);
+//        chromList.add(xx);
+//        int[] aa = new int[chromList.size()];
+//        aa = fitness.fitness(chromList,duration.getDurationTime());
+//        System.out.println(aa[0]);
 
     }
 

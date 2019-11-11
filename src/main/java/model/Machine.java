@@ -1,6 +1,6 @@
 package model;
 
-import java.util.List;
+import java.awt.*;
 
 /**
  * @auther chen.don
@@ -11,15 +11,63 @@ public class Machine {
     /**
      * 工序--机器映射
      */
-    private List<int[]> Machine;
+    private int machineNum;
 
-    public List<int[]> getMachine() {
-        return Machine;
+    /**
+     * 机器使用的物料
+     */
+    private int machineMaterial;
+    /**
+     * 机器使用的颜色
+     */
+    private Color machineColor;
+    /**
+     * 机器可使用的时间
+     */
+    private double machineUseableTime;
+    /**
+     * 机器使用的模具
+     */
+    private int machineModel;
+
+    public int getMachineNum() {
+        return machineNum;
     }
 
-    public void setMachine(List<int[]> machine) {
-        Machine = machine;
+    public void setMachineNum(int machineNum) {
+        this.machineNum = machineNum;
     }
 
+    public int getMachineMaterial() {
+        return machineMaterial;
+    }
+
+    public void setMachineMaterial(int machineMaterial) {
+        this.machineMaterial = machineMaterial;
+    }
+
+    public double getMachineUseableTime() {
+        return machineUseableTime;
+    }
+
+    public void setMachineUseableTime(double machineUseableTime) {
+        this.machineUseableTime = machineUseableTime;
+    }
+
+    public int getMachineModel() {
+        return machineModel;
+    }
+
+    public void setMachineModel(int machineModel) {
+        this.machineModel = machineModel;
+    }
+
+    public Color getMachineColor() {
+        return machineColor;
+    }
+
+    public void setMachineColor(Color machineColor) {
+        this.machineColor = machineColor;
+    }
 
 }

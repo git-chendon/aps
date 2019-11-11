@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.*;
+
 /**
  * @auther chen.don
  * @date 2019/10/12 10:53
@@ -10,23 +12,72 @@ public class Job {
      */
     private int jobNum;
     /**
-     * 机器
+     * 使用的机器
      */
     private int MachineNum;
     /**
+     * 使用的物料
+     */
+    private int jobMaterial;
+    /**
+     * 物料的颜色
+     */
+    private Color jobColor;
+    /**
+     * 使用的摸具
+     */
+    private int jobModel;
+    /**
+     * 工序订单数量
+     */
+    private int jobQuantity;
+    /**
+     * 订单加工时间
+     */
+    private double jobProductTime;
+    /**
+     * 生产准备时间
+     */
+    private double jobReadyTime;
+    /**
+     * 摸具拆卸时间
+     */
+    private double jobTakeDownTime;
+    /**
      * 工序开始时间
      */
-    private int StartTime;
+    private double StartTime;
     /**
      * 工序结束时间
      */
-    private int endTime;
+    private double endTime;
+    /**
+     *
+     * 惩罚值
+     */
+    private int punishment;
+    /**
+     * 机器-工序映射
+     */
+    private int[] machJobMapper;
+    /**
+     * 机器对应的生产能力
+     */
+    private int[] machJobCapMapper;
 
-    public int getEndTime() {
+    public int getPunishment() {
+        return punishment;
+    }
+
+    public void setPunishment(int punishment) {
+        this.punishment = punishment;
+    }
+
+    public double getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(int endTime) {
+    public void setEndTime(double endTime) {
         this.endTime = endTime;
     }
 
@@ -46,11 +97,83 @@ public class Job {
         MachineNum = machineNum;
     }
 
-    public int getStartTime() {
+    public double getStartTime() {
         return StartTime;
     }
 
-    public void setStartTime(int startTime) {
+    public void setStartTime(double startTime) {
         StartTime = startTime;
+    }
+
+    public int getJobMaterial() {
+        return jobMaterial;
+    }
+
+    public void setJobMaterial(int jobMaterial) {
+        this.jobMaterial = jobMaterial;
+    }
+
+    public int getJobModel() {
+        return jobModel;
+    }
+
+    public void setJobModel(int jobModel) {
+        this.jobModel = jobModel;
+    }
+
+    public int getJobQuantity() {
+        return jobQuantity;
+    }
+
+    public void setJobQuantity(int jobQuantity) {
+        this.jobQuantity = jobQuantity;
+    }
+
+    public double getJobProductTime() {
+        return jobProductTime;
+    }
+
+    public void setJobProductTime(double jobProductTime) {
+        this.jobProductTime = jobProductTime;
+    }
+
+    public double getJobReadyTime() {
+        return jobReadyTime;
+    }
+
+    public void setJobReadyTime(double jobReadyTime) {
+        this.jobReadyTime = jobReadyTime;
+    }
+
+    public double getJobTakeDownTime() {
+        return jobTakeDownTime;
+    }
+
+    public void setJobTakeDownTime(double jobTakeDownTime) {
+        this.jobTakeDownTime = jobTakeDownTime;
+    }
+
+    public Color getJobColor() {
+        return jobColor;
+    }
+
+    public void setJobColor(Color jobColor) {
+        this.jobColor = jobColor;
+    }
+
+    public int[] getMachJobMapper() {
+        return machJobMapper;
+    }
+
+    public void setMachJobMapper(int[] machJobMapper) {
+        this.machJobMapper = machJobMapper;
+    }
+
+    public int[] getMachJobCapMapper() {
+        return machJobCapMapper;
+    }
+
+    public void setMachJobCapMapper(int[] machJobCapMapper) {
+        this.machJobCapMapper = machJobCapMapper;
     }
 }
