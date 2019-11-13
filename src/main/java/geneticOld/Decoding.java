@@ -1,6 +1,6 @@
 package geneticOld;
 
-import model.Job;
+import domain.Job;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Decoding {
                 for (int j = 0; j < tempChrom[0].length; j++) {
                     if (tempChrom[0][j] == i + 1) {              //根据随机分配的优先级确定生产顺序
                         Job job = new Job();
-                        job.setJobNum(j + 1);
+                        job.setJobId(j + 1);
                         job.setMachineNum(tempChrom[1][j]);
                         tempJob.add(job);
                     }

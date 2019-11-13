@@ -1,4 +1,4 @@
-package model;
+package geneticOld;
 
 /**
  * @auther chen.don

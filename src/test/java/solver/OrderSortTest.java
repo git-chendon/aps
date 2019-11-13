@@ -1,14 +1,11 @@
-package process;
+package solver;
 
-import model.Order;
-import org.junit.Assert;
+import domain.Order;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @auther chen.don
@@ -24,23 +21,23 @@ class OrderSortTest {
     void init() {
         order = new Order();
         order.setOrderPriority(1);
-        order.setOrderNum(1);
+        order.setOrderId(1);
         orderList.add(order);
         order = new Order();
         order.setOrderPriority(3);
-        order.setOrderNum(2);
+        order.setOrderId(2);
         orderList.add(order);
         order = new Order();
         order.setOrderPriority(2);
-        order.setOrderNum(3);
+        order.setOrderId(3);
         orderList.add(order);
         order = new Order();
         order.setOrderPriority(5);
-        order.setOrderNum(4);
+        order.setOrderId(4);
         orderList.add(order);
         order = new Order();
         order.setOrderPriority(4);
-        order.setOrderNum(5);
+        order.setOrderId(5);
         orderList.add(order);
     }
 
@@ -50,7 +47,7 @@ class OrderSortTest {
         List<Order> orders =orderSort.orderSort(orderList);
         System.out.println(orderList.size());
         for (Order order : orders){
-            System.out.println(order.getOrderNum());
+            System.out.println(order.getOrderId());
         }
     }
 }

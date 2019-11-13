@@ -1,6 +1,6 @@
 package geneticOld;
 
-import model.Job;
+import domain.Job;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class Schedule {
             } else {
                 jobStartTime = machineTime[job.getMachineNum() - 1] + 1;
             }
-            jobEndTime = workDurationTime[job.getJobNum() - 1][job.getMachineNum() - 1] + MachEndTime + jobStartTime;
+            jobEndTime = workDurationTime[job.getJobId() - 1][job.getMachineNum() - 1] + MachEndTime + jobStartTime;
             machineTime[job.getMachineNum() - 1] = jobEndTime;    //更新机器可用时间
             job.setStartTime(jobStartTime);
             job.setEndTime(jobEndTime);

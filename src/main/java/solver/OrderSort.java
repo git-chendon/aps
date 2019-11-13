@@ -1,6 +1,6 @@
-package process;
+package solver;
 
-import model.Order;
+import domain.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class OrderSort {
         int[][] temp = new int[3][orderNum];    //List转为数组进行排序
         for (int i = 0; i < orderNum; i++) {
             Order order = orderList.get(i);
-            temp[0][i] = order.getOrderNum();
+            temp[0][i] = order.getOrderId();
             temp[1][i] = order.getOrderPriority();
             temp[2][i] = order.getOrderEndDate();
         }

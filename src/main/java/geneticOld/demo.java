@@ -1,7 +1,7 @@
-package demo;
+package geneticOld;
 
-import model.Job;
-import model.Order;
+import domain.Job;
+import domain.Order;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,7 +41,7 @@ public class demo {
         tempOrder.add(4);
         tempOrder.add(5);
         tempOrder.add(6);
-        order.setOrderNum(1);
+        order.setOrderId(1);
         order.setOrderJob(tempOrder);
         orderList.add(order);                //订单信息
         int machineNum = 5;                  //机器数量
@@ -85,7 +85,7 @@ public class demo {
             //System.out.println(tempJob.size());
             System.out.println("工作完成时间：" + minTime(tempJob));
             for (Job job : tempJob) {
-                System.out.print("<工序" + job.getJobNum() + "机器" + job.getMachineNum() +
+                System.out.print("<工序" + job.getJobId() + "机器" + job.getMachineNum() +
                         "开始" + job.getStartTime() + "结束" + job.getEndTime() + ">");
             }
             System.out.println();

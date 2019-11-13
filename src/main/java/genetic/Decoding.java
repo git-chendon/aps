@@ -1,7 +1,7 @@
 package genetic;
 
-import model.Job;
-import model.Order;
+import domain.Job;
+import domain.Order;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class Decoding {
             for (int j = 0; j < length; j++) {
                 if (chromosome[0][j] == i + 1) {       //根据随机分配的优先级确定生产顺序
                     Job job = new Job();
-                    job.setJobNum(j + 1);              //j+1是工序号
+                    job.setJobId(j + 1);              //j+1是工序号
                     job.setMachineNum(chromosome[1][j]);   //chromosome[1][j]是对应的机器号
 
                     //赋值job信息

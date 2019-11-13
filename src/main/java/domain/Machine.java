@@ -1,6 +1,7 @@
-package model;
+package domain;
 
 import java.awt.*;
+import java.util.Set;
 
 /**
  * @auther chen.don
@@ -8,11 +9,14 @@ import java.awt.*;
  */
 public class Machine {
 
+    private Long workshopId;                       //所在车间
+    private Integer clampingForce;                 //锁模力
+    private Set<Long> moldIds;                     // 可用模具id集合
+
     /**
      * 工序--机器映射
      */
-    private int machineNum;
-
+    private int machineId;
     /**
      * 机器使用的物料
      */
@@ -30,12 +34,12 @@ public class Machine {
      */
     private int machineModel;
 
-    public int getMachineNum() {
-        return machineNum;
+    public int getMachineId() {
+        return machineId;
     }
 
-    public void setMachineNum(int machineNum) {
-        this.machineNum = machineNum;
+    public void setMachineId(int machineId) {
+        this.machineId = machineId;
     }
 
     public int getMachineMaterial() {

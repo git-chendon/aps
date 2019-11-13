@@ -1,4 +1,4 @@
-package model;
+package domain;
 
 import java.awt.*;
 
@@ -7,10 +7,19 @@ import java.awt.*;
  * @date 2019/10/12 10:53
  */
 public class Job {
+
+    /**
+     * 对应的订单信息
+     */
+    private Order order;
+    /**
+     * 对应工艺路线
+     */
+    private Process process;
     /**
      * 工序编号
      */
-    private int jobNum;
+    private int jobId;
     /**
      * 使用的机器
      */
@@ -52,10 +61,9 @@ public class Job {
      */
     private double endTime;
     /**
-     *
      * 惩罚值
      */
-    private int punishment;
+    private double punishment;
     /**
      * 机器-工序映射
      */
@@ -65,11 +73,11 @@ public class Job {
      */
     private int[] machJobCapMapper;
 
-    public int getPunishment() {
+    public double getPunishment() {
         return punishment;
     }
 
-    public void setPunishment(int punishment) {
+    public void setPunishment(double punishment) {
         this.punishment = punishment;
     }
 
@@ -81,12 +89,12 @@ public class Job {
         this.endTime = endTime;
     }
 
-    public int getJobNum() {
-        return jobNum;
+    public int getJobId() {
+        return jobId;
     }
 
-    public void setJobNum(int jobNum) {
-        this.jobNum = jobNum;
+    public void setJobId(int jobId) {
+        this.jobId = jobId;
     }
 
     public int getMachineNum() {

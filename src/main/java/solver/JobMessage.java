@@ -1,6 +1,6 @@
-package process;
+package solver;
 
-import model.Job;
+import domain.Job;
 
 import java.util.List;
 

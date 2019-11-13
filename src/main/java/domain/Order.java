@@ -1,5 +1,6 @@
-package model;
+package domain;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,19 +15,27 @@ public class Order {
     /**
      * 订单号
      */
-    private int orderNum;
+    private int orderId;
     /**
      * 订单优先级
      */
    private int orderPriority;
     /**
-     * 订单开始日期
-     */
-    private int orderStartDate;
-    /**
      * 订单截至日期
      */
     private int orderEndDate;
+    /**
+     *产品和对应数量
+     */
+    private Map<Integer,Integer> productAndNum;
+
+    public Map<Integer, Integer> getProductAndNum() {
+        return productAndNum;
+    }
+
+    public void setProductAndNum(Map<Integer, Integer> productAndNum) {
+        this.productAndNum = productAndNum;
+    }
 
     public Set<Integer> getOrderJob() {
         return orderJob;
@@ -36,12 +45,12 @@ public class Order {
         this.orderJob = orderOperation;
     }
 
-    public int getOrderNum() {
-        return orderNum;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setOrderNum(int orderNum) {
-        this.orderNum = orderNum;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getOrderPriority() {
@@ -50,14 +59,6 @@ public class Order {
 
     public void setOrderPriority(int orderPriority) {
         this.orderPriority = orderPriority;
-    }
-
-    public int getOrderStartDate() {
-        return orderStartDate;
-    }
-
-    public void setOrderStartDate(int orderStartDate) {
-        this.orderStartDate = orderStartDate;
     }
 
     public int getOrderEndDate() {

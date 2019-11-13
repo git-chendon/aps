@@ -1,8 +1,8 @@
 package genetic;
 
-import model.Job;
-import model.Machine;
-import process.ChangeColor;
+import domain.Job;
+import domain.Machine;
+import solver.ChangeColor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class Scheduling {
         List<Machine> machineList = new ArrayList<>();
         for (int i = 0; i < machineNum; i++) {
             machineList.add(new Machine());
-            machineList.get(i).setMachineNum(i + 1);
+            machineList.get(i).setMachineId(i + 1);
         }
         //遍历工序，排程
         for (Job job : jobList) {
@@ -45,16 +45,16 @@ public class Scheduling {
             if (tempMachine.getMachineUseableTime() == 0) {
                 jobStartTime = job.getJobReadyTime();
             } else if (job.getJobModel() != tempMachine.getMachineModel()) {     //判断是否换模,换模惩罚
-                punishValue += 10;     //换模惩罚
+                punishValue += 5;     //换模惩罚
                 if (job.getJobMaterial() != tempMachine.getMachineMaterial()) {    //判断物料是否一致
-                    punishValue += 2;    //物料惩罚
+                    punishValue += 0.1;    //物料惩罚
                     ChangeColor changeColor = new ChangeColor();
                     punishValue += changeColor.changeColorPunish(job.getJobColor(), tempMachine.getMachineColor());  //颜色惩罚
                 }
                 jobStartTime = tempMachine.getMachineUseableTime() + job.getJobReadyTime() + job.getJobTakeDownTime() ;  //换模计算时间
             } else {
                 if (job.getJobMaterial() != tempMachine.getMachineMaterial()) {    //判断物料是否一致
-                    punishValue += 2;    //物料惩罚
+                    punishValue += 0.1;    //物料惩罚
                     ChangeColor changeColor = new ChangeColor();
                     punishValue += changeColor.changeColorPunish(job.getJobColor(), tempMachine.getMachineColor());  //颜色惩罚
                 }

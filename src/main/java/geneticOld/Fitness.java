@@ -1,6 +1,6 @@
 package geneticOld;
 
-import model.Job;
+import domain.Job;
 
 import java.util.List;
 /**
