@@ -8,33 +8,21 @@ import java.util.Set;
  * @date 2019/10/23 15:55
  */
 public class Order {
-    /**
-     * 订单中工序的集合
-     */
-    private Set<Integer> orderJob;
-    /**
-     * 订单号
-     */
-    private int orderId;
-    /**
-     * 订单优先级
-     */
-   private int orderPriority;
-    /**
-     * 订单截至日期
-     */
-    private int orderEndDate;
-    /**
-     *产品和对应数量
-     */
-    private Map<Integer,Integer> productAndNum;
 
-    public Map<Integer, Integer> getProductAndNum() {
-        return productAndNum;
+    private Set<Integer> orderJob;                  //订单中工序的集合
+    private int orderId;                            //订单号
+    private int processId;                          //订单目标产品id，未使用
+    private int orderPriority;                      //订单优先级
+    private int orderEndDate;                       //订单截至日期
+    private Map<Integer,Integer> productCount;      //产品和对应数量，未使用
+
+
+    public Map<Integer, Integer> getProductCount() {
+        return productCount;
     }
 
-    public void setProductAndNum(Map<Integer, Integer> productAndNum) {
-        this.productAndNum = productAndNum;
+    public void setProductCount(Map<Integer, Integer> productCount) {
+        this.productCount = productCount;
     }
 
     public Set<Integer> getOrderJob() {

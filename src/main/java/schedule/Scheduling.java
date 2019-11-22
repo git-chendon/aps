@@ -1,8 +1,8 @@
-package genetic;
+package schedule;
 
 import domain.Job;
 import domain.Machine;
-import solver.ChangeColor;
+import domain.solver.ChangeColor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

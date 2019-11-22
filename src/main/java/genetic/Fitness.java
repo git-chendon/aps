@@ -2,6 +2,7 @@ package genetic;
 
 import domain.Job;
 import domain.Order;
+import schedule.Scheduling;
 
 import java.util.List;
 

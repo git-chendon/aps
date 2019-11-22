@@ -1,20 +1,65 @@
 package demo;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        Scanner s1 = new Scanner(new File("workOrderInput.txt"));
+
+        while (s1.hasNext()) {
+            System.out.println(s1.next());
+        }
+        FileReader fr = null;
+        BufferedReader br = null;
+        String s = null;
+        String[] arrayTemp = null;
+        List<String[]> contentArrays = new ArrayList<String[]>();
+
+        try {
+            fr = new FileReader(new File("workOrderInput.txt"));
+            br = new BufferedReader(fr);
+
+            while ((s = br.readLine()) != null) {
+                if (s.equals("#")) continue;
+                arrayTemp = s.split("，");
+                contentArrays.add(arrayTemp);
+            }
+
+            for (int i = 2; i < contentArrays.size(); i++) {
+                arrayTemp = contentArrays.get(i);
+                for (String l : arrayTemp)
+                    System.out.print(l + " ");
+                System.out.println();
+            }
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            br.close();
+            fr.close();
+        }
 
 
-
-
-
+        try {
+            File writeName = new File("out.txt");
+            writeName.createNewFile();
+            BufferedWriter out = new BufferedWriter(new FileWriter(writeName));
+            out.write("排程输出：");
+            out.flush();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
 //        double aa = (double)1000/30;
 //        BigDecimal bg = new BigDecimal(aa);
 //        double d3 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 //        System.out.println(d3);
-
 
 
 //        long rMean = ((long)color1.getRed() + (long)color2.getRed());

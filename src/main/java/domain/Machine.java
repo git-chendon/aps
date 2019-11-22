@@ -12,7 +12,7 @@ public class Machine {
     private Long workshopId;                       //所在车间
     private Integer clampingForce;                 //锁模力
     private Set<Long> moldIds;                     // 可用模具id集合
-
+    private double machineUseableTime;             //机器可使用的时间
     /**
      * 工序--机器映射
      */
@@ -25,10 +25,6 @@ public class Machine {
      * 机器使用的颜色
      */
     private Color machineColor;
-    /**
-     * 机器可使用的时间
-     */
-    private double machineUseableTime;
     /**
      * 机器使用的模具
      */

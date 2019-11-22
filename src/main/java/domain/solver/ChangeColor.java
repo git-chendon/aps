@@ -1,4 +1,4 @@
-package solver;
+package domain.solver;
 
 import java.awt.*;
 

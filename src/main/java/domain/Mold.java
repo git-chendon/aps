@@ -8,8 +8,17 @@ import java.util.Map;
  */
 public class Mold {
 
-    private Integer cycle; // 周期秒级
-    private Map<Long, Integer> holes; // {processId:hole}
+    private int moldId;                            //模具id
+    private Integer cycle;                         // 周期秒级
+    private Map<Long, Integer> holes;              // {processId:hole}
+
+    public int getMoldId() {
+        return moldId;
+    }
+
+    public void setMoldId(int moldId) {
+        this.moldId = moldId;
+    }
 
     public Integer getCycle() {
         return cycle;

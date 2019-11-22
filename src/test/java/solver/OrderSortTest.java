@@ -1,6 +1,7 @@
 package solver;
 
 import domain.Order;
+import domain.solver.OrderSort;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 

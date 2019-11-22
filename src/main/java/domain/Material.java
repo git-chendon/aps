@@ -6,9 +6,11 @@ package domain;
  */
 public class Material {
 
-private int materialId;
-private int materialInventory;
-private double materialPrepareTime;
+    private int materialId;                                //物料id
+    private int materialInventory;                         //物料库存
+    private double materialPrepareTime;                    //物料准备时间
+
+
 
     public int getMaterialId() {
         return materialId;
